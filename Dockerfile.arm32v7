@@ -1,0 +1,32 @@
+FROM rrdockerhub/ros-base-kinetic-arm32v7:v0.1.0
+
+LABEL authors = "Bhuvanchandra DV <bhuvanchandra.dv@rapyuta-robotics.com>" \
+      com.rapyuta-robotics.version="4.1.17"
+
+ENV ROS_HOME=/ros \
+    ROS_LANG_DISABLE=genlisp;gencpp;geneus;gennodejs
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    ros-kinetic-rospy \
+    ros-kinetic-roslaunch \
+    build-essential \
+    ros-kinetic-actionlib-msgs \
+    python-pip \
+    python-wheel \
+    python-snappy
+
+ADD . /ros/ws/src/talker_clone
+
+RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
+    && cd /ros/ws/src \
+    && catkin_init_workspace\
+    && cd /ros/ws \
+    && catkin_make -DCATKIN_ENABLE_TESTING=False\
+    && mkdir -p /ros/log \
+    && chgrp -R root /ros \
+    && chmod -R g+rwx /ros"
+
+COPY ros_entrypoint.sh .
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["roslaunch", "talker_clone", "talker_clone.launch"]
