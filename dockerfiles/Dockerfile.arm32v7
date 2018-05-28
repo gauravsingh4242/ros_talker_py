@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     python-wheel \
     python-snappy
 
-ADD . /ros/ws/src/talker_clone
+ADD . /ros/ws/src/talker_py
 
 RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
     && cd /ros/ws/src \
@@ -29,4 +29,4 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
 COPY ros_entrypoint.sh .
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["roslaunch", "talker_clone", "talker_clone.launch"]
+CMD ["roslaunch", "talker", "talker.launch"]
