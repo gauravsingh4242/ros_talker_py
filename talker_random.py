@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import Int32
+import random
+
 
 def talker():
-	pub = rospy.Publisher('telemetry', String, queue_size=10)
-	rospy.init_node('talker', anonymous=True)
+	pub = rospy.Publisher('random', Int32, queue_size=10)
+	rospy.init_node('talker_random', anonymous=True)
 	rate = rospy.Rate(10)
 	while not rospy.is_shutdown():
-		hello_str = "hello_world %s" % rospy.get_time()
+		hello_str = random.randint(100, 10000)
 		rospy.loginfo(hello_str)
 		pub.publish(hello_str)
 		rate.sleep()

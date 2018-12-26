@@ -1,6 +1,6 @@
 FROM rrdockerhub/ros-base-kinetic-arm32v7:v0.1.0
 
-LABEL authors = "Bhuvanchandra DV <bhuvanchandra.dv@rapyuta-robotics.com>" \
+LABEL authors = "Gaurav Singh <gaurav.singh@rapyuta-robotics.com>" \
       com.rapyuta-robotics.version="4.1.17"
 
 ENV ROS_HOME=/ros \
@@ -29,4 +29,4 @@ RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
 COPY ros_entrypoint.sh .
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["roslaunch", "talker", "talker.launch"]
+CMD ["roslaunch", "talker_random", "talker_random.launch"]

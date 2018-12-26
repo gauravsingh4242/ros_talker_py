@@ -1,0 +1,3 @@
+<launch>
+	<node name="talker_random" pkg="talker_random" type="talker_random.py" output="screen"/>
+</launch>
